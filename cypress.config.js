@@ -1,19 +1,21 @@
 const { defineConfig } = require("cypress");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
-const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
-const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
+const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
+    async setupNodeEvents(on, config) {
+      // Aseguramos que la función de preprocesador está creada correctamente
       const bundler = createBundler({
-        plugins: [createEsbuildPlugin(config)],
+        plugins: [createEsbuildPlugin(config)]
       });
+
       on("file:preprocessor", bundler);
-      addCucumberPreprocessorPlugin(on, config);
+      await addCucumberPreprocessorPlugin(on, config);
       return config;
     },
-    specPattern: "cypress/e2e/steps/todo.feature",
+    specPattern: "cypress/e2e/**/*.feature",
     baseUrl: "https://todomvc.com/examples/react/dist/#/",
   },
 });
