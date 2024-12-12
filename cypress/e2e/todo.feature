@@ -14,8 +14,8 @@ Feature: Gestionar tareas en la aplicación TodoMVC
   Scenario: Desmarcar tarea como completada
     Given que estoy en la página de TodoMVC
     And creo una tarea con el nombre "Tarea a desmarcar"
-    And marco la tarea "Tarea a demarcar" como completada
-    When desmarco la tarea "Tarea a demarcar" como completada
+    And marco la tarea "Tarea a desmarcar" como completada
+    When desmarco la tarea "Tarea a desmarcar" como completada
     Then debería ver la tarea "Tarea a desmarcar" marcada como pendiente
 
   Scenario: Editar una tarea

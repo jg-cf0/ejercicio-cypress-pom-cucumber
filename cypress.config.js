@@ -6,16 +6,15 @@ const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esb
 module.exports = defineConfig({
   e2e: {
     async setupNodeEvents(on, config) {
-      // Aseguramos que la función de preprocesador está creada correctamente
       const bundler = createBundler({
-        plugins: [createEsbuildPlugin(config)]
+        plugins: [createEsbuildPlugin(config)],
       });
 
       on("file:preprocessor", bundler);
       await addCucumberPreprocessorPlugin(on, config);
       return config;
     },
-    specPattern: "cypress/e2e/**/*.feature",
+    specPattern: "**/*.cy.js",  // Ajuste del patrón de búsqueda
     baseUrl: "https://todomvc.com/examples/react/dist/#/",
   },
 });

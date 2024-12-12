@@ -14,6 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: List files
+      run: ls -R
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -26,4 +29,4 @@ jobs:
       run: chmod +x ./node_modules/.bin/cypress
 
     - name: Run Cypress Tests
-      run: npx cypress run --spec cypress/e2e/todo.cy.js || true
+      run: npx cypress run --spec cypress/e2e/todo.cy.js
