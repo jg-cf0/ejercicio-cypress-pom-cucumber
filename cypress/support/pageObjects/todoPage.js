@@ -26,7 +26,14 @@ export class TodoPage {
   editTask(index, newName) {
     this.getTask(index).dblclick(); // Hacer doble click para activar la edición
     cy.focused().clear().type(`${newName}{enter}`); // Asegurarse de que el input está enfocado antes de editar
-  }  
+  } 
+  
+  editTaskByName(oldName, newName) {
+    this.getTasks()
+      .contains(oldName)
+      .dblclick(); // Activa el modo de edición
+    cy.focused().clear().type(`${newName}{enter}`); // Edita el contenido
+  }
 
   filterBy(filterName) {
     cy.get(".filters").contains(filterName).click();

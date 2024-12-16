@@ -29,11 +29,9 @@ Then("debería ver la tarea {string} marcada como completada", (taskName) => {
 });
 
 When("edito la tarea {string} a {string}", (oldName, newName) => {
-  todoPage.getTasks()
-    .contains(oldName)
-    .dblclick();
-  cy.focused().clear().type(`${newName}{enter}`);
+  todoPage.editTaskByName(oldName, newName);
 });
+
 
 When("elimino la tarea {string}", (taskName) => {
   todoPage.getTasks()
