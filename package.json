@@ -3,6 +3,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@types/cypress": "^0.1.6",
+    "@types/cypress-cucumber-preprocessor": "^4.0.5",
     "cucumber": "^6.0.7",
     "cypress": "^13.16.1"
   },

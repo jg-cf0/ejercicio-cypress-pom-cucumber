@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowJs": true, 
+    "checkJs": false,
+    "noEmit": true, 
     "target": "es5",
     "lib": ["es5", "es6", "dom"],
     "types": ["cypress", "node", "cypress-cucumber-preprocessor"],
@@ -9,15 +12,14 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@pages/*": ["cypress/pages/*"],
-      "@steps/*": ["cypress/integration/steps/*"]
+      "@pages/*": ["cypress/support/pageObjects/*"],
+      "@steps/*": ["cypress/e2e/steps/*"]
     }
   },
   "include": [
-    "cypress/**/*.ts",
-    "cypress/**/*.tsx",
     "cypress/**/*.js",
-    "cypress/**/*.jsx"
+    "cypress/e2e/**/*.js",
+    "cypress/support/**/*.js"
   ],
   "exclude": ["node_modules"]
 }
