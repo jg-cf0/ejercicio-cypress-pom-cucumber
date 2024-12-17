@@ -35,12 +35,15 @@ export class TodoPage {
   }
 
   verifyTaskIsCompleted(taskName) {
-    this.getTasks().contains(taskName).parent().should("have.class", "completed");
-  }
+    this.getTasks()
+      .contains(taskName)
+      .parents("li") // Asegúrate de ir al elemento "li" contenedor
+      .should("have.class", "completed");
+  }  
 
   verifyTaskDoesNotExist(taskName) {
-    this.getTasks().should("not.contain.text", taskName);
-  }
+    this.getTasks().should("have.length", 0); // Verificar que la lista esté vacía
+  }  
 
   filterBy(filterName) {
     cy.get(".filters").contains(filterName).click();

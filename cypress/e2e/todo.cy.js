@@ -16,28 +16,29 @@ describe("Pruebas Cypress con Page Object Model", () => {
 
   it("Marcar tarea como completada", () => {
     todoPage.addTask("Tarea a completar");
-    todoPage.toggleTask(0);
-    todoPage.getTask(0).should("have.class", "completed");
+    todoPage.toggleTaskByName("Tarea a completar");
+    todoPage.verifyTaskIsCompleted("Tarea a completar");
   });
 
   it("Desmarcar tarea como completada", () => {
     todoPage.addTask("Tarea a desmarcar");
-    todoPage.toggleTask(0); // Marcar como completada
-    todoPage.toggleTask(0); // Desmarcar
-    todoPage.getTask(0).should("not.have.class", "completed");
+    todoPage.toggleTaskByName("Tarea a desmarcar"); // Marcar como completada
+    todoPage.toggleTaskByName("Tarea a desmarcar"); // Desmarcar
+    todoPage.getTasks()
+      .contains("Tarea a desmarcar")
+      .parent()
+      .should("not.have.class", "completed");
   });
 
   it("Editar tarea", () => {
     todoPage.addTask("Tarea editable");
-    todoPage.editTask(0, "Tarea editada");
-    todoPage.getTask(0).should("contain.text", "Tarea editada");
+    todoPage.editTaskByName("Tarea editable", "Tarea editada"); 
+    todoPage.verifyTaskExists("Tarea editada");
   });
 
   it("Borrar una tarea", () => {
     todoPage.addTask("Tarea a borrar");
-    todoPage.deleteTask(0);
-    todoPage.getTasks().should("have.length", 0);
+    todoPage.deleteTaskByName("Tarea a borrar");
+    todoPage.verifyTaskDoesNotExist("Tarea a borrar");
   });
-
-  
 });
