@@ -15,24 +15,31 @@ export class TodoPage {
     return cy.get(".todo-list li").eq(index);
   }
 
-  toggleTask(index) {
-    this.getTask(index).find(".toggle").click();
+  toggleTaskByName(taskName) {
+    this.getTasks().contains(taskName).parent().find(".toggle").click();
   }
 
-  deleteTask(index) {
-    this.getTask(index).find(".destroy").click({ force: true });
+  deleteTaskByName(taskName) {
+    this.getTasks().contains(taskName).parent().find(".destroy").click({ force: true });
   }
-
-  editTask(index, newName) {
-    this.getTask(index).dblclick(); // Hacer doble click para activar la edición
-    cy.focused().clear().type(`${newName}{enter}`); // Asegurarse de que el input está enfocado antes de editar
-  } 
   
   editTaskByName(oldName, newName) {
     this.getTasks()
       .contains(oldName)
       .dblclick(); // Activa el modo de edición
     cy.focused().clear().type(`${newName}{enter}`); // Edita el contenido
+  }
+
+  verifyTaskExists(taskName) {
+    this.getTasks().should("contain.text", taskName);
+  }
+
+  verifyTaskIsCompleted(taskName) {
+    this.getTasks().contains(taskName).parent().should("have.class", "completed");
+  }
+
+  verifyTaskDoesNotExist(taskName) {
+    this.getTasks().should("not.contain.text", taskName);
   }
 
   filterBy(filterName) {

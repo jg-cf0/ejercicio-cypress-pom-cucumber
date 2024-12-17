@@ -10,37 +10,25 @@ When("creo una tarea con el nombre {string}", (taskName) => {
 });
 
 Then("debería ver la tarea {string} en la lista", (taskName) => {
-  todoPage.getTasks().should("contain.text", taskName);
+  todoPage.verifyTaskExists(taskName);
 });
 
 When("marco la tarea {string} como completada", (taskName) => {
-  todoPage.getTasks()
-    .contains(taskName)
-    .parent()
-    .find(".toggle")
-    .click();
+  todoPage.toggleTaskByName(taskName);
 });
 
 Then("debería ver la tarea {string} marcada como completada", (taskName) => {
-  todoPage.getTasks()
-    .contains(taskName)
-    .parent()
-    .should("have.class", "completed");
+  todoPage.verifyTaskIsCompleted(taskName);
 });
 
 When("edito la tarea {string} a {string}", (oldName, newName) => {
   todoPage.editTaskByName(oldName, newName);
 });
 
-
 When("elimino la tarea {string}", (taskName) => {
-  todoPage.getTasks()
-    .contains(taskName)
-    .parent()
-    .find(".destroy")
-    .click({ force: true });
+  todoPage.deleteTaskByName(taskName);
 });
 
 Then("no debería ver la tarea {string} en la lista", (taskName) => {
-  todoPage.getTasks().should("not.contain.text", taskName);
+  todoPage.verifyTaskDoesNotExist(taskName);
 });
